@@ -1,0 +1,13 @@
+# API Credentials and tokens
+client_secrets.json
+token.pickle
+
+# Python environment and cache
+__pycache__/
+*.pyc
+.venv/
+venv/
+env/
+*.log
+
+# CSV/JSON generated files (if they contain user inputs/submissions we don't want in git, but let's keep them if user wants them, though inquiries.csv/inquiries.json might contain data. Let's just stick to the secrets first)
