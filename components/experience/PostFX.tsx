@@ -1,6 +1,6 @@
 "use client";
 
-import { useRef, useEffect } from "react";
+import { createElement, useRef, useEffect } from "react";
 import { useFrame } from "@react-three/fiber";
 import { EffectComposer, Bloom, DepthOfField, ChromaticAberration } from "@react-three/postprocessing";
 import * as THREE from "three";
@@ -56,27 +56,24 @@ export default function PostFX() {
   });
 
   return (
-    <EffectComposer disableNormalPass>
-      {/* Volumetric Neon Glows */}
-      <Bloom
-        luminanceThreshold={0.15}
-        luminanceSmoothing={0.9}
-        intensity={1.2}
-        mipmapBlur
-      />
-
-      {/* Photorealistic Camera Bokeh blur */}
-      <DepthOfField
-        ref={(el) => { dofRef.current = el; }}
-        focusDistance={0.035}
-        focalLength={0.04}
-        bokehScale={1.5}
-      />
-
-      {/* Glitchy offset for high-velocity scrolls */}
-      <ChromaticAberration
-        ref={(el) => { caRef.current = el; }}
-      />
-    </EffectComposer>
+    createElement(
+      EffectComposer as any,
+      { disableNormalPass: true },
+      createElement(Bloom as any, {
+        luminanceThreshold: 0.15,
+        luminanceSmoothing: 0.9,
+        intensity: 1.2,
+        mipmapBlur: true,
+      }),
+      createElement(DepthOfField as any, {
+        ref: dofRef as any,
+        focusDistance: 0.035,
+        focalLength: 0.04,
+        bokehScale: 1.5,
+      }),
+      createElement(ChromaticAberration as any, {
+        ref: caRef as any,
+      })
+    )
   );
 }

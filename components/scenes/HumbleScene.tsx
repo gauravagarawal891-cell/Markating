@@ -121,8 +121,8 @@ export default function HumbleScene() {
           </mesh>
 
           {/* Glass Curved Screen */}
-          <mesh position={[0, 0, 0.415]}>
-            <sphereGeometry args={[0.5, 32, 16, 0, Math.PI * 2, 0, 0.45]} rotation={[Math.PI / 2, 0, 0]} />
+          <mesh position={[0, 0, 0.415]} rotation={[Math.PI / 2, 0, 0]}>
+            <sphereGeometry args={[0.5, 32, 16, 0, Math.PI * 2, 0, 0.45]} />
             <meshBasicMaterial
               ref={screenRef}
               color="#00ff66"

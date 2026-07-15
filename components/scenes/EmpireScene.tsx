@@ -5,7 +5,6 @@ import { useFrame } from "@react-three/fiber";
 import * as THREE from "three";
 
 export default function EmpireScene() {
-  const chartRef = useRef<THREE.Line>(null);
   const officeGroupRef = useRef<THREE.Group>(null);
 
   // Generate coordinates for the golden exponential growth chart line
@@ -30,11 +29,6 @@ export default function EmpireScene() {
   // Animate the office meshes and the growth chart glow
   useFrame((state) => {
     const time = state.clock.getElapsedTime();
-
-    // Floating animation for the chart line
-    if (chartRef.current) {
-      chartRef.current.position.y = Math.sin(time * 2.0) * 0.04;
-    }
 
     // Slow corporate office orbit parallax
     if (officeGroupRef.current) {
@@ -61,9 +55,7 @@ export default function EmpireScene() {
 
       {/* Floating Exponential Growth Chart */}
       <group position={[0, 0.5, 0.5]}>
-        <line ref={chartRef} geometry={lineGeometry}>
-          <lineBasicMaterial color="#d4af37" linewidth={4} />
-        </line>
+        <primitive object={new THREE.Line(lineGeometry, new THREE.LineBasicMaterial({ color: "#d4af37", linewidth: 4 }))} />
         
         {/* Floating growth milestones (spheres) */}
         {chartPoints.filter((_, idx) => idx % 6 === 0 || idx === chartPoints.length - 1).map((pt, index) => (
